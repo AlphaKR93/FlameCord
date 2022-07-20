@@ -28,11 +28,17 @@ jobs:
         with:
           distribution: ${{ matrix.java }}
           java-version: ${{ matrix.jdk }}
-          cache: 'maven'
 
       - name: Configure Git
         run: |
           git config --global user.email "no-reply@github.com" && git config --global user.name "Github Actions"
+      
+      - name: Update submodule
+        run: |
+          rm -rf Waterfall && git clone --recursive https://github.com/PaperMC/Waterfall
+          cd Waterfall && rm -rf BungeeCord && git clone --recursive https://github.com/SpigotMC/BungeeCord
+          cd BungeeCord/native && rm -rf mbedtls && git clone --recursive https://github.com/Mbed-TLS/mbedtls.git
+          # rm -rf zlib && git clone --recursive https://github.com/cloudflare/zlib.git
 
       - name: Build
         run: ./flamecord b
