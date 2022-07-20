@@ -28,7 +28,7 @@ jobs:
         with:
           distribution: ${{ matrix.java }}
           java-version: ${{ matrix.jdk }}
-          cache: 'gradle'
+          cache: 'maven'
 
       - name: Configure Git
         run: |
