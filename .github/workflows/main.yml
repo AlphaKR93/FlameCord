@@ -43,8 +43,11 @@ jobs:
       - name: Build
         run: ./flamecord b
         
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@main
+      - name: Release Artifacts
+        uses: marvinpinto/action-automatic-releases@latest
         with:
-          name: Artifacts
-          path: FlameCord-Proxy/bootstrap/target
+          title: "Release #${{ env.workflow }}"
+          automatic_release_tag: latest-${{ env.version }}
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          files: FlameCord-Proxy/bootstrap/target/FlameCord.jar
+          prerelease: false
