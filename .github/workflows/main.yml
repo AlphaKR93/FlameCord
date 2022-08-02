@@ -32,6 +32,7 @@ jobs:
       - name: Configure Git
         run: |
           git config --global user.email "no-reply@github.com" && git config --global user.name "Github Actions"
+          echo "workflow=$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
       
       - name: Update submodule
         run: |
@@ -46,8 +47,8 @@ jobs:
       - name: Release Artifacts
         uses: marvinpinto/action-automatic-releases@latest
         with:
-          title: "Release #${{ env.workflow }}"
-          automatic_release_tag: latest-${{ env.version }}
+          title: "Build-${{ env.workflow }}"
+          automatic_release_tag: build-${{ env.workflow }}
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           files: FlameCord-Proxy/bootstrap/target/FlameCord.jar
           prerelease: false
